@@ -20,16 +20,18 @@ object Hoge {
 }
 
 object HogeRefactoring {
-  def inout[T](in: T, out: T):T = {
-    println(s"input = $in\nresult = ${out}")
+  def inout[T, U](in: T, fn: (T) => U):U = {
+    println(s"input = ${in}")
+    val out = fn(in)
+    println(s"result = ${out}")
     out
   }
   def foo(n: Int): Int = {
-    inout(n, n*3)
+    inout[Int, Int](n, _ * 2)
   }
 
   def bar(s: String): String = {
-    inout(s, s*2)
+    inout[String, String](s, _ * 3)
   }
 }
 

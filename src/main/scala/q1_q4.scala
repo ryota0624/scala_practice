@@ -4,17 +4,17 @@
 object q1_q4 {
   //Q1
   def show(optionStr: Option[String]): Unit = {
-    optionStr.foreach(str => println(str))
+    optionStr.foreach(println)
   }
   //Q2
   def getFirstChar(optionStr: Option[String]): String = {
-    optionStr.map(_.head.toString).getOrElse("")
+    optionStr.flatMap(_.headOption.map(_.toString)).getOrElse("")
   }
 
   //Q3
   private val dictionary = Map(1 -> "one", 2 -> "two", 3 -> "three")
   def translate(num: Option[Int]): Option[String] = {
-    num.flatMap { n => dictionary.get(n) }
+    num collect dictionary
   }
 
   //Q4

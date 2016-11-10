@@ -1,3 +1,4 @@
+import scala.annotation.tailrec
 import scala.concurrent.{Future, Promise}
 
 /**
@@ -15,8 +16,10 @@ object Saiki {
     sum
   }
 
-  def fooRefactoring(n: Int, count: Int): Int = {
-    if(count == 0) 0 else n + fooRefactoring(n, count - 1)
+  @tailrec
+  def fooRefactoring(n: Int, count: Int, acc: Int = 0): Int = {
+    if (count == 0) acc
+    else fooRefactoring(n , count - 1, acc + n)
   }
 
   def firstOf[T](v1: Future[T], v2: Future[T]): Future[T] = {
