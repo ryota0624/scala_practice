@@ -30,10 +30,13 @@ object q5_q8 {
       "hanako" -> Map("math" -> 84, "english" -> 78, "social" -> 66)
     )
 
-    scores.flatMap({ case (name, score) =>
-      score.get("math")
-        .flatMap(math => score.get("english").map(english => (math + english) / 2))
-        .collect({ case average if average > 80 => (name, average) })
+    (for {
+      (name, score) <- scores
+      math <- score.get("math")
+      english <- score.get("english")
+      average = (math + english) / 2 if average > 80
+    } yield {
+      (name, average)
     }).toSeq
   }
 }
